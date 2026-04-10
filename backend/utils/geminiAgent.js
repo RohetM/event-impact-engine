@@ -28,7 +28,7 @@ async function runAgent(systemPrompt, userInput, requireJson = false) {
     while (retries > 0) {
       try {
         response = await ai.models.generateContent({
-          model: "gemini-2.5-pro",
+          model: "gemini-flash-lite-latest",
           contents: userInput,
           config: config
         });
