@@ -220,7 +220,7 @@ export default function InsightsDashboard({ data }: InsightsDashboardProps) {
                   <span className="text-white text-base font-bold tracking-widest uppercase drop-shadow-md">Executive Briefing</span>
                </div>
                <p className="text-emerald-400 text-sm leading-relaxed font-mono font-medium min-h-[60px]">
-                  > {typedSummary}
+                  &gt; {typedSummary}
                   <span className="animate-pulse font-mono text-emerald-500">_</span>
                </p>
             </div>

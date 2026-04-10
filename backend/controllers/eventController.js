@@ -14,12 +14,13 @@ exports.analyzeEvent = async (req, res) => {
     // Stage 1: Event Analyzer
     // ----------------------------------------------------------------------
     const analyzerPrompt = `You are an Event Analyzer intelligence agent.
-    Categorize the geopolitical, economic, or natural event and extract core facts.
+    Categorize the geopolitical, economic, technological, or natural event and extract core facts.
+    If the input describes a geopolitical, technological, or economic event that could impact any global market or industry, it MUST be marked as relevant.
     If the input is nonsense, completely trivial, or not an event, respond EXACTLY with this JSON: { "error": "Invalid or trivial event. Please provide a clear global event." }
-    Otherwise, respond with a JSON object describing the event parameters.
+    Otherwise, respond with a JSON object describing the event parameters. Ensure the JSON response explicitly sets "is_relevant": true for news about infrastructure, cyberattacks, or supply chains.
 
     EXAMPLE INPUT: "US imposes 20% tariffs on EV imports"
-    EXAMPLE OUTPUT: { "category": "Economic/Geopolitical", "who": "US Government", "what": "20% tariffs on EVs", "where": "United States", "when": "Current", "why": "Trade policy" }
+    EXAMPLE OUTPUT: { "is_relevant": true, "category": "Economic/Geopolitical", "who": "US Government", "what": "20% tariffs on EVs", "where": "United States", "when": "Current", "why": "Trade policy" }
 
     Ensure your response is ONLY valid JSON.`;
     

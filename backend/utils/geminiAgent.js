@@ -22,12 +22,28 @@ async function runAgent(systemPrompt, userInput, requireJson = false) {
       config.responseMimeType = "application/json";
     }
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: userInput,
-      config: config
-    });
-
+    let response;
+    let retries = 3;
+    let delayMs = 2000;
+    while (retries > 0) {
+      try {
+        response = await ai.models.generateContent({
+          model: "gemini-2.5-pro",
+          contents: userInput,
+          config: config
+        });
+        break; // Success
+      } catch (err) {
+        if (err.status === 503 || String(err).includes('503') || err.message?.includes('high demand') || err.status === 'UNAVAILABLE') {
+          console.warn(`[Agent] 503 Unavailable. Retrying in ${delayMs}ms... (${retries} retries left)`);
+          await new Promise(resolve => setTimeout(resolve, delayMs));
+          retries--;
+          if (retries === 0) throw err;
+        } else {
+          throw err;
+        }
+      }
+    }
     let outputText = response.text;
 
     if (requireJson) {
