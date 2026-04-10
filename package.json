@@ -1,0 +1,11 @@
+{
+  "name": "event-impact-engine-root",
+  "version": "1.0.0",
+  "description": "Root orchestration for Event Impact Engine",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm start --prefix backend\""
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
